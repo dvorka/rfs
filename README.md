@@ -1,4 +1,10 @@
 rfs
 ===
 
-Reliable File System (college Operating System course exercise) - low level filesystem tier with fdisk, striping, ...
+Reliable File System (college Operating System course exercise)
+
+
+DESCRIPTION
+===========
+
+Low level tier of the journaling file system with striping (RAID).
