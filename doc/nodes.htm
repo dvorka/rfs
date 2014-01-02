@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE></TITLE>
+   <META NAME="Author" CONTENT="">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (WinNT; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<H3>Nodes</H3>
+
+<P>Nodes jsou deklarovany v souboru <A HREF="../SRC/Nodes.h">nodes.h</A>.</P>
+
+<H4>Poznamky k rootdir</H4>
+
+<PRE>int CreateRootDir(byte Device, byte Partition, dword &amp;logical);
+ - vytvori na disku specifikovanem jako <B>Device</B> a <B>Partition
+</B>   korenovy adresar; v <B>logical</B> vraci sektor, ve kterem je
+   umisten jeho NODE.</PRE>
+
+<UL>
+<LI>Pri vytvareni chce po cachemanovi tri souvisle sektory -&gt; pokud
+je nedostane, korenovy adresar nevytvori a skonci.</LI>
+
+<LI>U '<B>.</B>' je uveden odkaz na logicky sektor, ve kterem lezi NODE&nbsp;korenoveho
+adresare. U&nbsp;'<B>..</B>' je uvedena 0. </LI>
+</UL>
+
+<H4>Trida MemNODEList</H4>
+
+<P>Trida je obalkou pro obousmerny spojovy seznam pametovych nodu. Konzistence
+fronty je zajistena semaforem. Pametove nody jsou ve fronte vzestupne setridene
+podle device, partition a sektoru.</P>
+
+<P>Metoda <B>Add</B> pridava pametovy node. Nejprve prohledne frontu, zda
+v ni jiz tento node neni. Pokud ano, zvysi pocet odvolavek (NrOfActiveFileInstances)
+a vrati ukazatel na tento nalezeny pametovy node. Pokud node ve fronte
+neni, vytvori ho, zkopiruje do neho obsah fyzickeho node, nastavi jeho
+zbyle promenne a vrati na neho odkaz.</P>
+
+<P>Metoda <B>Release</B> snizi pocet odvolavek na pametovy node. Pokud
+je roven 0, pak odstrani tento node z fronty.</P>
+
+</BODY>
+</HTML>

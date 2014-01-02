@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE></TITLE>
+   <META NAME="Author" CONTENT="">
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (WinNT; I) [Netscape]">
+</HEAD>
+<BODY>
+
+<H3>Konfigurace RFS</H3>
+
+<H4>Konfiguracni soubor</H4>
+
+<P>Pro nastaveni systemovych promennych dulezitych pro start filesystemu
+se pouziva konfiguracni soubor. Konfiguracni soubor se musi nachazet v
+aktualnim adresari. Jeho jmeno je definovano v souboru <I>main.cpp</I>
+makrem <B>CONFIG_FILENAME.</B></P>
+
+<H4><B>Syntaxe konfiguracniho souboru</B></H4>
+
+<P>Na radku smi byt obsazen prave jeden vyraz tvaru '<TT>variable = some_value</TT>'.
+Radky zacinajici strednikem jsou ignorovany.</P>
+
+<H4>Cteni konfiguracniho souboru</H4>
+
+<P>Soubor se nacita pri inicializaci filesystemu. Napriklad pro zjisteni
+hodnoty promenne VARIABLE staci do modulu <I>config.cpp</I> do funkce <TT>int
+ReadConfigFile(byte *)</TT> do sekce okomentovane</P>
+
+<UL>
+<P><TT>// -- ask for your variables here</TT></P>
+</UL>
+
+<PRE>vlozit neco jako tohle :</PRE>
+
+<UL>
+<PRE><TT>if (GetConfigValue(list,(byte *)&quot;VARIABLE&quot;,result,1)
+{
+  // pokud je promenna result typu retezec, je v ni ulozena
+  // hodnota nalezena v konfiguracnim souboru
+  // pokud je promenna typu dword (ne jiny ordinalni typ !!),
+  // je zde cislo
+}
+else // tato promenna nebyla v konfiguracnim souboru nalezena</TT></PRE>
+</UL>
+
+<P>Posledni parametr teto funkce je nepovinny. Urcuje, zda rozlisovat velka
+a mala pismena pri prohledavani konfiguracniho souboru. Hodnota 1 znamena
+case-sensitive, hodnota 0 znamena no-case-sensitive. Implicitne je nastaveno
+no-case-sensitive.</P>
+
+<H4>Konfiguracni promenne</H4>
+
+<UL>
+<LI>Promenna <B>FILES</B>&nbsp;v konfiguracnim souboru urcuje maximalni
+pocet soucasne otevrenych souboru (i se systemovymy soubory, logy ..).
+Na tuto hodnotu bude take nastavena velikost systemove tabulky otevrenych
+souboru a kazdy proces bude mit<BR>
+tabulku otevrenych souboru procesu o teto velikosti. Defaultni hodnota
+je 12.<BR>
+S touto konfiguracni promennou je svazana globalni promenna <B>MaxOpenedFiles</B>.
+</LI>
+</UL>
+
+<P>
+<HR WIDTH="100%"></P>
+
+<CENTER><P><A HREF="toplevel.html">back</A></P></CENTER>
+
+</BODY>
+</HTML>
